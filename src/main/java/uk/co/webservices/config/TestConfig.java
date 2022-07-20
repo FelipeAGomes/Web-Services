@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import uk.co.webservices.entities.Category;
 import uk.co.webservices.entities.Order;
 import uk.co.webservices.entities.User1;
 import uk.co.webservices.entities.enums.OrderStatus;
+import uk.co.webservices.repositories.CategoryRepository;
 import uk.co.webservices.repositories.OrderRepository;
 import uk.co.webservices.repositories.User1Repository;
 //configuration to test profile and seeding database
@@ -24,9 +26,13 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+		
 		User1 u1 = new User1(null, "Maria Brown", "maria@gmail.com", "988888888", "123456"); 
 		User1 u2 = new User1(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 		
@@ -34,8 +40,15 @@ public class TestConfig implements CommandLineRunner{
 		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"),OrderStatus.WAITING_PAYMENT, u2); 
 		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"),OrderStatus.WAITING_PAYMENT, u1);
 		
+
+		Category cat1 = new Category(null, "Car"); 
+		Category cat2 = new Category(null, "Motorbike"); 
+		Category cat3 = new Category(null, "Boat");
+
+		
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));		
 		user1Repository.saveAll(Arrays.asList(u1,u2));
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 	}
 	
 }
