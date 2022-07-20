@@ -8,11 +8,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import uk.co.webservices.entities.Brand;
 import uk.co.webservices.entities.Category;
 import uk.co.webservices.entities.Order;
 import uk.co.webservices.entities.Product;
 import uk.co.webservices.entities.User1;
 import uk.co.webservices.entities.enums.OrderStatus;
+import uk.co.webservices.repositories.BrandRepository;
 import uk.co.webservices.repositories.CategoryRepository;
 import uk.co.webservices.repositories.OrderRepository;
 import uk.co.webservices.repositories.ProductRepository;
@@ -34,6 +36,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private BrandRepository brandRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -46,20 +51,26 @@ public class TestConfig implements CommandLineRunner{
 		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"),OrderStatus.WAITING_PAYMENT, u1);
 		
 
-		Category cat1 = new Category(null, "Car"); 
-		Category cat2 = new Category(null, "Motorbike"); 
-		Category cat3 = new Category(null, "Boat");
+		Category cat1 = new Category(null, "Sport"); 
+		Category cat2 = new Category(null, "SUV"); 
+		Category cat3 = new Category(null, "Eletric");
 
 		Product p1 = new Product(null, "Camaro", "Lorem ipsum dolor sit amet, consectetur.", 25000.5, ""); 
-		Product p2 = new Product(null, "CBR1000", "Nulla eu imperdiet purus. Maecenas ante.", 12190.0, "");
-		Product p3 = new Product(null, "Boat 12", "Nam eleifend maximus tortor, at mollis.", 31250.0, "");
+		Product p2 = new Product(null, "Volvo XC60", "Nulla eu imperdiet purus. Maecenas ante.", 12190.0, "");
+		Product p3 = new Product(null, "Ferrari", "Nam eleifend maximus tortor, at mollis.", 31250.0, "");
 		Product p4 = new Product(null, "Mustang", "Donec aliquet odio ac rhoncus cursus.", 21200.0, "");
-		Product p5 = new Product(null, "Harley Davidson Sportster", "Cras fringilla convallis sem vel faucibus.", 8100.99, "");
+		Product p5 = new Product(null, "Tesla", "Cras fringilla convallis sem vel faucibus.", 8100.99, "");
+		
+		Brand b1 = new Brand(null, "Ford"); 
+		Brand b2 = new Brand(null, "Volvo"); 
+		Brand b3 = new Brand(null, "Tesla");
 		
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));		
 		user1Repository.saveAll(Arrays.asList(u1,u2));
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		brandRepository.saveAll(Arrays.asList(b1, b2, b3));
+		
 	}
 	
 }
