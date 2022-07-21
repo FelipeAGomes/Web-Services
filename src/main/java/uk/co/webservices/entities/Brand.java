@@ -1,12 +1,17 @@
 package uk.co.webservices.entities;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_brand")
@@ -16,6 +21,10 @@ public class Brand {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String brandName;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "brandies")
+	private Set<Product> products = new HashSet<>();
 	
 	public Brand() {
 		
@@ -35,13 +44,18 @@ public class Brand {
 		this.id = id;
 	}
 
-	public String getBrand() {
+	public String getBrandName() {
 		return brandName;
 	}
 
-	public void setBrand(String brandName) {
+	public void setBrandName(String brandName) {
 		this.brandName = brandName;
 	}
+	
+	public Set<Product> getProducts() {
+		return products;
+	}
+
 
 	@Override
 	public int hashCode() {

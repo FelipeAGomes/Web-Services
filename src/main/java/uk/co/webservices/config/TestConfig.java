@@ -64,12 +64,29 @@ public class TestConfig implements CommandLineRunner{
 		Brand b1 = new Brand(null, "Ford"); 
 		Brand b2 = new Brand(null, "Volvo"); 
 		Brand b3 = new Brand(null, "Tesla");
+		Brand b4 = new Brand(null, "Ferrari");
+		
+		p1.getCategories().add(cat1);
+		p1.getCategories().add(cat2);
+		p2.getCategories().add(cat2);
+		p2.getCategories().add(cat3);
+		p3.getCategories().add(cat3);
+		p4.getCategories().add(cat1);
+		p5.getCategories().add(cat3);
+		
+		p1.getBrandies().add(b1);
+		p2.getBrandies().add(b2);
+		p3.getBrandies().add(b4);
+		p4.getBrandies().add(b1);
+		p5.getBrandies().add(b3);
+	
 		
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));		
 		user1Repository.saveAll(Arrays.asList(u1,u2));
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		brandRepository.saveAll(Arrays.asList(b1, b2, b3, b4));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
-		brandRepository.saveAll(Arrays.asList(b1, b2, b3));
+		
 		
 	}
 	
