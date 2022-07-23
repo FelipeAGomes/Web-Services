@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_user")
 public class User1 implements Serializable {
@@ -27,6 +29,7 @@ public class User1 implements Serializable {
 	
 	// 1 client has many orders/ get and setters (for collection only get)/ List of orders/ mapped by client from order entity
 	
+	@JsonIgnore // to stop the looping user x order
 	@OneToMany(mappedBy ="client")
 	private List<Order> orders = new ArrayList<>();
 	

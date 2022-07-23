@@ -11,11 +11,13 @@ import org.springframework.context.annotation.Profile;
 import uk.co.webservices.entities.Brand;
 import uk.co.webservices.entities.Category;
 import uk.co.webservices.entities.Order;
+import uk.co.webservices.entities.OrderItem;
 import uk.co.webservices.entities.Product;
 import uk.co.webservices.entities.User1;
 import uk.co.webservices.entities.enums.OrderStatus;
 import uk.co.webservices.repositories.BrandRepository;
 import uk.co.webservices.repositories.CategoryRepository;
+import uk.co.webservices.repositories.OrderItemRepository;
 import uk.co.webservices.repositories.OrderRepository;
 import uk.co.webservices.repositories.ProductRepository;
 import uk.co.webservices.repositories.User1Repository;
@@ -39,6 +41,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private BrandRepository brandRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -87,6 +92,12 @@ public class TestConfig implements CommandLineRunner{
 		brandRepository.saveAll(Arrays.asList(b1, b2, b3, b4));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 		
 	}
 	
