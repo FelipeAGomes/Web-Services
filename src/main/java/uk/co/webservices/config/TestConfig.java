@@ -79,11 +79,11 @@ public class TestConfig implements CommandLineRunner{
 		p4.getCategories().add(cat1);
 		p5.getCategories().add(cat3);
 		
-		p1.getBrandies().add(b1);
-		p2.getBrandies().add(b2);
-		p3.getBrandies().add(b4);
-		p4.getBrandies().add(b1);
-		p5.getBrandies().add(b3);
+		p1.setBrand(b4);
+		p2.setBrand(b2);
+		p3.setBrand(b4);
+		p4.setBrand(b1);
+		p5.setBrand(b3);
 	
 		
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));		
