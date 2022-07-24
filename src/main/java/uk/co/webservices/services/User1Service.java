@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import uk.co.webservices.entities.User1;
 import uk.co.webservices.repositories.User1Repository;
+import uk.co.webservices.services.exceptions.ResourceNotFoundException;
 
 @Service // to use autowired 
 public class User1Service {
@@ -21,7 +22,7 @@ public class User1Service {
 	
 	public User1 findById(Long id) {
 		Optional<User1> obj = user1Repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 	
 	public User1 insert (User1 obj) {
