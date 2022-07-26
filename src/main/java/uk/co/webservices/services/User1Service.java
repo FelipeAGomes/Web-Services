@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import uk.co.webservices.entities.User1;
 import uk.co.webservices.repositories.User1Repository;
+import uk.co.webservices.services.exceptions.DatabaseException;
 import uk.co.webservices.services.exceptions.ResourceNotFoundException;
 
 @Service // to use autowired 
@@ -30,7 +33,13 @@ public class User1Service {
 	}
 	
 	public void delete(Long id) {
+		try {
 		user1Repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
