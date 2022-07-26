@@ -3,6 +3,8 @@ package uk.co.webservices.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -44,9 +46,13 @@ public class User1Service {
 	
 	@SuppressWarnings("deprecation")
 	public User1 update(Long id, User1 obj) {
+		try {
 		User1 entity = user1Repository.getOne(id);
 		updateData(entity, obj);
 		return user1Repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(User1 entity, User1 obj) {
